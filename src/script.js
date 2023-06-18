@@ -1,15 +1,42 @@
 import * as THREE from 'three'
 
 const canvas = document.querySelector('canvas.webgl')
-
 const scene = new THREE.Scene()
+const group = new THREE.Group()
 
-const geometry = new THREE.BoxGeometry(1,1,1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-const mesh = new THREE.Mesh(geometry, material)
-mesh.position.set(0,0,0)
-mesh.scale.set(2,4,2)
-mesh.rotation.x
+function buildCubeWithRotation() {
+    const newMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(1,1,1),
+        new THREE.MeshBasicMaterial({color: 0xff0000})
+    )
+    newMesh.position.set(2,0, 0)
+    // newMesh.scale.set(2, 4, 2)
+    // newMesh.rotation.reorder('XYZ')
+    // newMesh.rotation.y = Math.PI / 2;
+    // newMesh.rotation.z = Math.PI / 2;
+    // newMesh.rotation.x = Math.PI / 4;
+    return newMesh;
+}
+
+function buildCubeWithColor(color) {
+    console.log(color, `LOL: ${color}`)
+    return new THREE.Mesh(
+        new THREE.BoxGeometry(1,1,1),
+        new THREE.MeshBasicMaterial({color: color}),
+    )
+}
+
+const cube1 = buildCubeWithColor(0x00ff00)
+cube1.position.x = -2
+const cube2 = buildCubeWithColor(0x0000ff)
+const cube3 = buildCubeWithRotation();
+
+group.add(cube1)
+group.add(cube2)
+group.add(cube3)
+// group.rotateX(10)
+// group.rotateY(10)
+group.rotateZ(-10)
 const perspectiveSize = {
     width: 800,
     height: 600
@@ -17,13 +44,13 @@ const perspectiveSize = {
 
 const camera = new THREE.PerspectiveCamera(75, perspectiveSize.width / perspectiveSize.height)
 camera.position.z=10
-camera.position.x=4
-
+camera.lookAt(group.position)
 const axesHelper = new THREE.AxesHelper(10)
 
-scene.add(mesh)
 scene.add(camera)
 scene.add(axesHelper)
+scene.add(group)
+
 
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
