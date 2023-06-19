@@ -1,72 +1,69 @@
 import * as THREE from 'three'
+import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
 const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
-function buildCubeWithRotation() {
+function buildMesh() {
     const newMesh = new THREE.Mesh(
-        new THREE.BoxGeometry(1,1,1),
+        new THREE.BoxGeometry(1,1,1, 5,5,5),
         new THREE.MeshBasicMaterial({color: 0xffffff})
     )
-    newMesh.position.set(0,0, 0)
-    newMesh.scale.set(2,2,2)
-    // newMesh.rotateX(5)
-    // newMesh.scale.set(2, 4, 2)
-    // newMesh.rotation.reorder('XYZ')
-    // newMesh.rotation.y = Math.PI / 2;
-    // newMesh.rotation.z = Math.PI / 2;
-    // newMesh.rotation.x = Math.PI / 4;
     return newMesh;
 }
-const cube = buildCubeWithRotation();
+const mesh = buildMesh();
 
 const tick = () => {
     // setNextFrame()
-    setNextFrameV2()
+    // setNextFrameV2()
     renderer.render(scene, camera)
+    controls.update()
     window.requestAnimationFrame(tick)
 }
 
-// Method 1
-let prevTime = Date.now()
-function setNextFrame() {
-    let currentTime = Date.now()
-    cube.rotation.z += 0.001 * timeDiff
-    let timeDiff = currentTime - prevTime
-    prevTime = currentTime
-
-    // For making sure that rotation takes place at the same rate
-    cube.rotation.z += 0.001 * timeDiff
-    cube.rotation.x += 0.001 * timeDiff
-}
-
-const clock = new THREE.Clock()
 function setNextFrameV2() {
-    const elapsedTime = clock.getElapsedTime()
-    // cube.rotation.x = elapsedTime * Math.PI * 2;
-    // cube.rotation.x = elapsedTime * Math.PI * 2;
-    // cube.position.x = Math.sin(elapsedTime)
-    // cube.position.y = Math.sin(elapsedTime)
-    cube.rotation.y = elapsedTime
+    camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3
+    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
+    camera.position.y = cursor.y * 5
+    camera.lookAt(mesh.position)
 }
 
 const perspectiveSize = {
     width: 800,
     height: 600
 }
+const cursor = {
+    x: 0, y: 0
+}
 
-const camera = new THREE.PerspectiveCamera(75, perspectiveSize.width / perspectiveSize.height)
-camera.position.z=5
-camera.position.y=1
+window.addEventListener('mousemove', (event => {
+    cursor.x = event.clientX / perspectiveSize.width - 0.5;
+    cursor.y = event.clientY / perspectiveSize.height - 0.5;
+}))
+
+const aspectRatio = perspectiveSize.width / perspectiveSize.height
+const camera = new THREE.PerspectiveCamera(75,aspectRatio)
+camera.position.set(0,0,2)
+// const camera = new THREE.OrthographicCamera(
+//     -1 * aspectRatio,
+//     1 * aspectRatio,
+//     1,
+//     -1,
+//     0.1,
+//     1000
+// )
+camera.lookAt(mesh.position)
+
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
 const axesHelper = new THREE.AxesHelper(10)
-
 scene.add(camera)
 scene.add(axesHelper)
-scene.add(cube)
+scene.add(mesh)
 
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(perspectiveSize.width, perspectiveSize.height)
-
-tick(0)
+renderer.render(scene, camera)
+tick()
