@@ -10,11 +10,6 @@ function buildCubeWithRotation() {
         new THREE.MeshBasicMaterial({color: 0xff0000})
     )
     newMesh.position.set(2,0, 0)
-    // newMesh.scale.set(2, 4, 2)
-    // newMesh.rotation.reorder('XYZ')
-    // newMesh.rotation.y = Math.PI / 2;
-    // newMesh.rotation.z = Math.PI / 2;
-    // newMesh.rotation.x = Math.PI / 4;
     return newMesh;
 }
 
@@ -34,8 +29,6 @@ const cube3 = buildCubeWithRotation();
 group.add(cube1)
 group.add(cube2)
 group.add(cube3)
-// group.rotateX(10)
-// group.rotateY(10)
 group.rotateZ(-10)
 const perspectiveSize = {
     width: 800,
