@@ -15,7 +15,6 @@ const {
 } = baseComponents
 
 loadEventListeners(pageState, baseComponents)
-loadThreeJsClock(baseComponents)
 
 const material = new THREE.MeshStandardMaterial()
 material.roughness = 0.7
@@ -24,14 +23,18 @@ const geometryObjects = setupThreeJsGeometryObjects(material);
 const lights = setupThreeJsLights()
 
 const {
-    ambientLight
+    directionalLightCameraHelper,
+    directionalLight
 } = lights
+
+loadThreeJsClock(baseComponents, [directionalLightCameraHelper])
 
 Object.keys(geometryObjects).forEach(obj => scene.add(geometryObjects[obj]));
 Object.keys(lights).forEach(lightKey => scene.add(lights[lightKey]));
 
 loadThreeJsControls({
     camera,
-    ambientLight,
-    material
+    material,
+    directionalLight,
+    directionalLightCameraHelper
 })
