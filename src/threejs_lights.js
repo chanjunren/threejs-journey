@@ -18,19 +18,31 @@ export default function setupThreeJsLights() {
 
   const directionalLightCameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
 
-  const spotLight = new THREE.SpotLight(0xffffff, 0.4, 10, Math.PI * 0.3)
-  spotLight.castShadow = true
-  spotLight.position.set(0, 2, 2)
-  const spotLightTarget = spotLight.target
+  const spotlight = new THREE.SpotLight(0xffffff, 0.4, 10, Math.PI * 0.3)
+  spotlight.castShadow = true
+  spotlight.position.set(0, 2, 2)
+  const spotlightTarget = spotlight.target
 
-  const spotLightCameraHelper = new THREE.CameraHelper(spotLight.shadow.camera)
+  const spotlightCameraHelper = new THREE.CameraHelper(spotlight.shadow.camera)
+
+  const pointLight = new THREE.PointLight(0xffffff, 0.3)
+  pointLight.castShadow = true
+  pointLight.shadow.mapSize.width = 1024
+  pointLight.shadow.mapSize.height = 1024
+  pointLight.shadow.camera.near = 0.1
+  pointLight.shadow.camera.far = 5
+  pointLight.position.set(- 1, 1, 0)
+
+  const pointLightCameraHelper = new THREE.CameraHelper(pointLight.shadow.camera)
 
   return {
-    // ambientLight,
-    // directionalLight,
+    ambientLight,
+    directionalLight,
     // directionalLightCameraHelper
-    spotLight,
-    spotLightTarget,
-    spotLightCameraHelper
+    spotlight,
+    // spotlightTarget,
+    // spotlightCameraHelper
+    pointLight,
+    // pointLightCameraHelper
   }
 }

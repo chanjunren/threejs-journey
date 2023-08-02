@@ -1,27 +1,28 @@
 import GUI from "lil-gui";
 
 export default function loadThreeJsControls({
-
-                                            }) {
-    const gui = new GUI();
-    // gui.add(camera.rotation, 'x')
-    //     .name('Camera x position')
-    //     .onChange(value => camera.position.x = value)
-    //     .min(-Math.PI / 2)
-    //     .max(Math.PI / 2)
-    //     .step(0.2)
-    //
-    // gui.add(material, 'roughness')
-    //     .name('Material roughness')
-    //     .min(-1)
-    //     .max(1)
-    //     .step(0.001)
-    //
-    // gui.add(material, 'metalness')
-    //     .name('Material metalness')
-    //     .min(-1)
-    //     .max(1)
-    //     .step(0.001)
+  pointLight,
+  pointLightCameraHelper
+}) {
+  const gui = new GUI();
+  // gui.add(camera.rotation, 'x')
+  //     .name('Camera x position')
+  //     .onChange(value => camera.position.x = value)
+  //     .min(-Math.PI / 2)
+  //     .max(Math.PI / 2)
+  //     .step(0.2)
+  //
+  // gui.add(material, 'roughness')
+  //     .name('Material roughness')
+  //     .min(-1)
+  //     .max(1)
+  //     .step(0.001)
+  //
+  // gui.add(material, 'metalness')
+  //     .name('Material metalness')
+  //     .min(-1)
+  //     .max(1)
+  //     .step(0.001)
 
     // gui.add(ambientLight, 'intensity')
     //     .name('Ambient light intensity')
@@ -101,4 +102,15 @@ export default function loadThreeJsControls({
     //     .min(-5)
     //     .max(5)
     //     .step(0.1)
+  // gui.add(spotlight.shadow.camera, 'near')
+  //     .name('Camera near')
+  //     .min(1)
+  //     .max(6)
+  //     .step(0.1)
+  //     .onChange(value => {
+  //         spotlight.shadow.camera.near = value;
+  //         spotlight.shadow.camera.updateProjectionMatrix();
+  //         spotlightCameraHelper.update();
+  //     });
+
 }

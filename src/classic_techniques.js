@@ -6,18 +6,21 @@ import loadThreeJsBase from "./threejs_base.js";
 import loadEventListeners from "./threejs_eventlisteners.js";
 import setupThreeJsGeometryObjects from "./threejs_objects.js";
 import setupThreeJsLights from "./threejs_lights.js";
+import loadThreeJsMaterials from "./threejs_materials.js";
 
 const pageState  = loadPageState()
 const baseComponents = loadThreeJsBase(pageState)
 loadEventListeners(pageState, baseComponents)
 
-const material = new THREE.MeshStandardMaterial()
-material.roughness = 0.7
+const materials = loadThreeJsMaterials()
 
-const geometryObjects = setupThreeJsGeometryObjects(material);
+const geometryObjects = setupThreeJsGeometryObjects(materials);
 const lights = setupThreeJsLights()
 
-loadThreeJsClock(baseComponents)
+loadThreeJsClock({
+    ...baseComponents,
+    ...geometryObjects
+})
 
 const sceneObjects = [
     ...Object.values(geometryObjects),
@@ -27,7 +30,6 @@ const sceneObjects = [
 sceneObjects.forEach(obj => baseComponents.scene.add(obj));
 
 loadThreeJsControls({
-    material,
     ...lights,
     ...baseComponents,
     ...geometryObjects

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export default function useThreeJsTextures() {
+export default function loadThreeJsMaterials() {
   function initLoadingManager() {
     const loadingManager = new THREE.LoadingManager()
     loadingManager.onError = (url) => {
@@ -15,7 +15,14 @@ export default function useThreeJsTextures() {
   const loadingManager = initLoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager)
 
+  const bakedShadows = textureLoader.load('/textures/bakedShadow.jpg')
+  const simpleShadow =  textureLoader.load('/textures/simpleShadow.jpg')
+  const meshStandard = new THREE.MeshStandardMaterial()
+  meshStandard.roughness = 0.7
+
   return {
-    textureLoader
+    meshStandard,
+    bakedShadows,
+    simpleShadow
   }
 }
