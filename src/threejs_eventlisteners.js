@@ -1,6 +1,7 @@
 export default function loadEventListeners(pageState, threeJsComponents) {
   const {camera, renderer, canvas} = threeJsComponents
   const {cursor, perspectiveSize} = pageState
+
   window.addEventListener('mousemove', (event => {
     cursor.x = event.clientX / perspectiveSize.width - 0.5;
     cursor.y = event.clientY / perspectiveSize.height - 0.5;
