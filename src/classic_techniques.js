@@ -9,11 +9,6 @@ import setupThreeJsLights from "./threejs_lights.js";
 
 const pageState  = loadPageState()
 const baseComponents = loadThreeJsBase(pageState)
-const {
-    scene,
-    camera,
-} = baseComponents
-
 loadEventListeners(pageState, baseComponents)
 
 const material = new THREE.MeshStandardMaterial()
@@ -22,19 +17,18 @@ material.roughness = 0.7
 const geometryObjects = setupThreeJsGeometryObjects(material);
 const lights = setupThreeJsLights()
 
-const {
-    directionalLightCameraHelper,
-    directionalLight
-} = lights
+loadThreeJsClock(baseComponents)
 
-loadThreeJsClock(baseComponents, [directionalLightCameraHelper])
+const sceneObjects = [
+    ...Object.values(geometryObjects),
+    ...Object.values(lights)
+]
 
-Object.keys(geometryObjects).forEach(obj => scene.add(geometryObjects[obj]));
-Object.keys(lights).forEach(lightKey => scene.add(lights[lightKey]));
+sceneObjects.forEach(obj => baseComponents.scene.add(obj));
 
 loadThreeJsControls({
-    camera,
     material,
-    directionalLight,
-    directionalLightCameraHelper
+    ...lights,
+    ...baseComponents,
+    ...geometryObjects
 })

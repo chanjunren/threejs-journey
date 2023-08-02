@@ -19,6 +19,7 @@ export default function loadBaseThreeJsComponents({
   renderer.render(scene, camera)
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
   renderer.shadowMap.enabled = true
+  // renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
   const controls = new OrbitControls(camera, canvas)
   controls.enableDamping = true
