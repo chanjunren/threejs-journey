@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export default function loadThreeJsMaterials() {
+export default function loadMaterials() {
   function initLoadingManager() {
     const loadingManager = new THREE.LoadingManager()
     loadingManager.onError = (url) => {

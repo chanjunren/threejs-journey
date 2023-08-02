@@ -1,4 +1,4 @@
-export default function loadPageState() {
+export default function initPageState() {
   const perspectiveSize = {
     width: window.innerWidth,
     height: window.innerHeight

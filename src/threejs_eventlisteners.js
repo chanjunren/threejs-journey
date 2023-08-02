@@ -1,4 +1,4 @@
-export default function loadEventListeners(pageState, threeJsComponents) {
+export default function initEventListeners(pageState, threeJsComponents) {
   const {camera, renderer, canvas} = threeJsComponents
   const {cursor, perspectiveSize} = pageState
 

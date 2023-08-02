@@ -2,7 +2,7 @@ import * as THREE from "three";
 import GUI from "lil-gui";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 
-export default function loadBaseThreeJsComponents({
+export default function initCore({
     perspectiveSize,
     aspectRatio
 }) {

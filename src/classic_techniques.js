@@ -1,24 +1,25 @@
 import * as THREE from 'three'
-import loadThreeJsClock from "./threejs_clock.js";
+import startTicker from "./threejs_clock.js";
 import loadThreeJsControls from "./threejs_controls.js";
-import loadPageState from "./page_state.js";
-import loadThreeJsBase from "./threejs_base.js";
-import loadEventListeners from "./threejs_eventlisteners.js";
-import setupThreeJsGeometryObjects from "./threejs_objects.js";
-import setupThreeJsLights from "./threejs_lights.js";
-import loadThreeJsMaterials from "./threejs_materials.js";
+import initPageState from "./page_state.js";
+import initCore from "./threejs_base.js";
+import initEventListeners from "./threejs_eventlisteners.js";
+import initGeometryObjects from "./threejs_objects.js";
+import initLights from "./threejs_lights.js";
+import loadMaterials from "./threejs_materials.js";
 
-const pageState  = loadPageState()
-const baseComponents = loadThreeJsBase(pageState)
-loadEventListeners(pageState, baseComponents)
+const pageState  = initPageState()
+const coreComponents = initCore(pageState)
 
-const materials = loadThreeJsMaterials()
+initEventListeners(pageState, coreComponents)
 
-const geometryObjects = setupThreeJsGeometryObjects(materials);
-const lights = setupThreeJsLights()
+const materials = loadMaterials()
 
-loadThreeJsClock({
-    ...baseComponents,
+const geometryObjects = initGeometryObjects(materials);
+const lights = initLights()
+
+startTicker({
+    ...coreComponents,
     ...geometryObjects
 })
 
@@ -27,10 +28,10 @@ const sceneObjects = [
     ...Object.values(lights)
 ]
 
-sceneObjects.forEach(obj => baseComponents.scene.add(obj));
+sceneObjects.forEach(obj => coreComponents.scene.add(obj));
 
 loadThreeJsControls({
     ...lights,
-    ...baseComponents,
+    ...coreComponents,
     ...geometryObjects
 })

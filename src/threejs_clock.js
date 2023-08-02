@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export default function loadThreeJsClock({
+export default function startTicker({
   controls, renderer, scene, camera, sphere, sphereShadow
 }) {
   const clock = new THREE.Clock()
