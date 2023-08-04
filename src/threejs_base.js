@@ -10,7 +10,9 @@ export default function initCore({
   const scene = new THREE.Scene()
 
   const camera = new THREE.PerspectiveCamera(75, aspectRatio)
-  camera.position.set(0,1,1.5)
+  camera.position.x = 4
+  camera.position.y = 2
+  camera.position.z = 5
 
   const renderer = new THREE.WebGLRenderer({
     canvas: canvas

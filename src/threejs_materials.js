@@ -17,11 +17,13 @@ export default function loadMaterials() {
 
   const bakedShadows = textureLoader.load('/textures/bakedShadow.jpg')
   const simpleShadow =  textureLoader.load('/textures/simpleShadow.jpg')
-  const meshStandard = new THREE.MeshStandardMaterial()
-  meshStandard.roughness = 0.7
+  const sphereMeshMaterial = new THREE.MeshStandardMaterial()
+  sphereMeshMaterial.roughness = 0.7
 
+  const planeMeshMaterial = new THREE.MeshStandardMaterial({color: "#a9c388"})
   return {
-    meshStandard,
+    sphereMeshMaterial,
+    planeMeshMaterial,
     bakedShadows,
     simpleShadow
   }
