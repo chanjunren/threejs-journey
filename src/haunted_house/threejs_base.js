@@ -8,6 +8,8 @@ export default function initCore({
 }) {
   const canvas = document.querySelector('canvas.webgl')
   const scene = new THREE.Scene()
+  const fog = new THREE.Fog('#262837', 1, 15)
+  scene.fog = fog
 
   const camera = new THREE.PerspectiveCamera(75, aspectRatio)
   camera.position.x = 4
@@ -20,14 +22,15 @@ export default function initCore({
   renderer.setSize(perspectiveSize.width, perspectiveSize.height)
   renderer.render(scene, camera)
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
+  renderer.setClearColor('#262837')
   renderer.shadowMap.enabled = true
   // renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
   const controls = new OrbitControls(camera, canvas)
   controls.enableDamping = true
 
-  const axesHelper = new THREE.AxesHelper(10)
-  scene.add(axesHelper)
+  // const axesHelper = new THREE.AxesHelper(10)
+  // scene.add(axesHelper)
 
   return {
     canvas,

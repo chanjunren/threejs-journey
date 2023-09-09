@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 import startTicker from "./threejs_clock.js";
 import loadThreeJsControls from "./threejs_controls.js";
 import initPageState from "./page_state.js";
@@ -28,7 +27,10 @@ const sceneObjects = [
     ...Object.values(lights)
 ]
 
-sceneObjects.forEach(obj => coreComponents.scene.add(obj));
+sceneObjects.forEach(obj => {
+    // obj.castShadow = true
+    coreComponents.scene.add(obj)
+});
 
 loadThreeJsControls({
     ...lights,
