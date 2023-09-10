@@ -3,7 +3,7 @@ import {
   PARTICLE_COUNT,
   PARTICLE_POSITIONS,
   PARTICLES_GEOMETRY
-} from "./galaxy_constants.js";
+} from "./particle_constants.js";
 
 export default function startTicker({
   controls,

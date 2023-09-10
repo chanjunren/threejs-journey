@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import {
   PARTICLES_GEOMETRY
-} from "./galaxy_constants.js";
+} from "./particle_constants.js";
 
 export default function setupThreeJsGeometryObjects({
   particlesMaterial

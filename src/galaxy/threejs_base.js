@@ -25,8 +25,8 @@ export default function initCore({
   const controls = new OrbitControls(camera, canvas)
   controls.enableDamping = true
 
-  const axesHelper = new THREE.AxesHelper(10)
-  scene.add(axesHelper)
+  // const axesHelper = new THREE.AxesHelper(10)
+  // scene.add(axesHelper)
 
   return {
     canvas,
