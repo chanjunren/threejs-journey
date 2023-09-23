@@ -28,12 +28,12 @@ function initGalaxyColors() {
   const outerColor =new THREE.Color(GALAXY_PARAMS.outerColor)
 
   const mixedColor = innerColor.clone()
-  mxedColor.lerp(outerColor, GALAXY_PARAMS.radius)
+  mixedColor.lerp(outerColor, GALAXY_PARAMS.radius)
   for (let i = 0; i < GALAXY_PARAMS.particleCount; i++) {
     const i3 = i * 3
-    colors[i3    ] = 1
-    colors[i3 + 1] = 0
-    colors[i3 + 2] = 0
+    colors[i3    ] = mixedColor.r
+    colors[i3 + 1] = mixedColor.g
+    colors[i3 + 2] = mixedColor.b
   }
 
   return colors;
