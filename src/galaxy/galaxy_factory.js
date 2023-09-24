@@ -12,8 +12,16 @@ export const GALAXY_PARAMS = {
   outerColor: '#1b3984'
 }
 
+let GALAXY_RADIUS = initGalaxyRadius();
 let GALAXY_POSITIONS = initGalaxyPositions()
 let GALAXY_GEOMETRY = initGalaxyGeometry()
+function initGalaxyRadius() {
+  const res = new Float32Array(GALAXY_PARAMS.particleCount * 3)
+  for (let i = 0; i < GALAXY_PARAMS.particleCount; i++) {
+    res[i] = Math.random() * GALAXY_PARAMS.radius
+  }
+  return res
+}
 function initGalaxyGeometry() {
   const geometry = new THREE.BufferGeometry()
   geometry.setAttribute('position', new THREE.BufferAttribute(GALAXY_POSITIONS, 3))
@@ -27,9 +35,9 @@ function initGalaxyColors() {
   const innerColor = new THREE.Color(GALAXY_PARAMS.innerColor)
   const outerColor =new THREE.Color(GALAXY_PARAMS.outerColor)
 
-  const mixedColor = innerColor.clone()
-  mixedColor.lerp(outerColor, GALAXY_PARAMS.radius)
   for (let i = 0; i < GALAXY_PARAMS.particleCount; i++) {
+    const mixedColor = innerColor.clone()
+    mixedColor.lerp(outerColor, GALAXY_RADIUS[i] / GALAXY_PARAMS.radius)
     const i3 = i * 3
     colors[i3    ] = mixedColor.r
     colors[i3 + 1] = mixedColor.g
@@ -44,8 +52,7 @@ function initGalaxyPositions() {
   const positions = new Float32Array(GALAXY_PARAMS.particleCount * 3)
   for (let i = 0; i < GALAXY_PARAMS.particleCount; i++) {
     const i3 = i * 3
-
-    const radius = Math.random() * GALAXY_PARAMS.radius
+    const radius = GALAXY_RADIUS[i]
 
     const spinAngle = radius * GALAXY_PARAMS.spin
     const branchAngle = (i % GALAXY_PARAMS.branches) / GALAXY_PARAMS.branches * Math.PI * 2
@@ -82,6 +89,7 @@ export function regenerateGalaxy(scene) {
     scene.remove(GALAXY)
   }
 
+  GALAXY_RADIUS = initGalaxyRadius()
   GALAXY_POSITIONS = initGalaxyPositions()
   GALAXY_GEOMETRY = initGalaxyGeometry()
   GALAXY = initGalaxy()
