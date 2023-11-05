@@ -1,28 +1,37 @@
-export default function initEventListeners(pageState, threeJsComponents) {
+import {CURSOR, OBJECTS_DISTANCE, PERSPECTIVE_SIZE} from "./page_state.js";
+
+export default function initEventListeners(threeJsComponents) {
   const {camera, renderer, canvas} = threeJsComponents
-  const {cursor, perspectiveSize} = pageState
 
   window.addEventListener('mousemove', (event => {
-    cursor.x = event.clientX / perspectiveSize.width - 0.5;
-    cursor.y = event.clientY / perspectiveSize.height - 0.5;
+    CURSOR.x = event.clientX / PERSPECTIVE_SIZE.width - 0.5;
+    CURSOR.y = event.clientY / PERSPECTIVE_SIZE.height - 0.5;
+    // console.log("NEW_CURSOR", CURSOR)
   }))
 
   window.addEventListener('resize', (event => {
-    perspectiveSize.width = window.innerWidth,
+    PERSPECTIVE_SIZE.width = window.innerWidth,
 
-    perspectiveSize.height = window.innerHeight
-    camera.aspect = perspectiveSize.width / perspectiveSize.height
+    PERSPECTIVE_SIZE.height = window.innerHeight
+    camera.aspect = PERSPECTIVE_SIZE.width / PERSPECTIVE_SIZE.height
     camera.updateProjectionMatrix()
 
-    renderer.setSize(perspectiveSize.width, perspectiveSize.height)
+    renderer.setSize(PERSPECTIVE_SIZE.width, PERSPECTIVE_SIZE.height)
   }))
 
-  window.addEventListener('dblclick', (event => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen()
-    } else {
-      canvas.requestFullscreen()
-    }
+  // window.addEventListener('dblclick', (event => {
+  //   if (document.fullscreenElement) {
+  //     document.exitFullscreen()
+  //   } else {
+  //     canvas.requestFullscreen()
+  //   }
+  // }))
+
+  window.addEventListener('scroll', (event => {
+    console.log("SCROLL_Y", window.scrollY)
+    console.log("CAMERA_Y", camera.position.y)
+    console.log(PERSPECTIVE_SIZE.height, OBJECTS_DISTANCE)
+    camera.position.y = -window.scrollY * OBJECTS_DISTANCE / PERSPECTIVE_SIZE.height;
   }))
 
 }

@@ -1,16 +1,14 @@
 import startTicker from "./threejs_clock.js";
 import loadThreeJsControls from "./threejs_controls.js";
-import initPageState from "./page_state.js";
 import initCore from "./threejs_base.js";
 import initEventListeners from "./threejs_eventlisteners.js";
 import initGeometryObjects from "./threejs_objects.js";
 import initLights from "./threejs_lights.js";
 import loadMaterials from "./threejs_materials.js";
 
-const pageState  = initPageState()
-const coreComponents = initCore(pageState)
+const coreComponents = initCore()
 
-initEventListeners(pageState, coreComponents)
+initEventListeners(coreComponents)
 
 const materials = loadMaterials()
 
@@ -35,5 +33,6 @@ sceneObjects.forEach(obj => {
 loadThreeJsControls({
     ...lights,
     ...coreComponents,
-    ...geometryObjects
+    ...geometryObjects,
+    ...materials
 })

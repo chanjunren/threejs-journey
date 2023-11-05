@@ -1,15 +1,20 @@
+import * as THREE from "three";
 import GUI from "lil-gui";
 
 export default function loadThreeJsControls({
-  moonLight,
-  directionalLightCameraHelper
+    toonMaterial
 }) {
   const gui = new GUI();
-  // gui.add(moonLight, 'intensity')
-  // .name('MoonLight Intensity')
-  // .min(0)
-  // .max(1)
-  // .step(0.001)
+  const materialColor = {
+    color: `#ff0000`
+  };
+
+  gui.addColor(materialColor, 'color')
+      .name('Cube color')
+      .onChange(newColor => {
+        toonMaterial.color.set(newColor);
+      });
+
   //
   // gui.add(moonLight.position, 'x')
   // .min(- 5)

@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import * as parameters from "three/nodes";
 
 export default function loadMaterials() {
   function initLoadingManager() {
@@ -14,11 +15,15 @@ export default function loadMaterials() {
 
   const loadingManager = initLoadingManager();
   const textureLoader = new THREE.TextureLoader(loadingManager)
-  const planeMeshMaterial = new THREE.MeshStandardMaterial({
-    color: '#f5f3e7'
+  const toonGradient = textureLoader.load('textures/gradients/3.jpg')
+  toonGradient.magFilter = THREE.NearestFilter
+
+  const toonMaterial = new THREE.MeshToonMaterial({
+    color: '#ff0000',
+    gradientMap: toonGradient
   })
 
   return {
-    planeMeshMaterial
+    toonMaterial
   }
 }
