@@ -1,7 +1,7 @@
 import initEventListeners from './core/eventListeners';
-import loadModels from './core/gltfLoader';
 import tick from './core/tick';
+import { loadScene } from './scene';
 
 initEventListeners();
-loadModels();
+loadScene();
 tick();

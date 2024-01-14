@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import scene from '../scene';
+import { mixer } from './mixers';
 import { camera, controls, renderer } from './threeJs';
 
 const clock = new THREE.Clock()
@@ -12,4 +13,8 @@ export default function tick () {
     controls.update()
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
+
+    if (mixer) {
+        mixer.update(deltaTime);
+    }
 }
