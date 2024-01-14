@@ -4,6 +4,8 @@ import { decorateWindow } from "./base/window";
 import { addObjectsToScene } from "./scene";
 
 initWorld();
-addObjectsToScene();
 decorateWindow();
+
+addObjectsToScene();
+
 tick();
