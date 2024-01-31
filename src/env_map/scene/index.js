@@ -1,6 +1,6 @@
 import { camera, scene } from "../base/three";
 import { addToDebugger, globalValues } from "../debug";
-import { ENV_MAP_INTENSITY, environmentMap } from "../textures";
+import { ENV_MAP_INTENSITY } from "../textures";
 import { torusKnot } from "./objects";
 
 export const BG_BLUR = "bgBlur";
@@ -14,12 +14,11 @@ export function initScene() {
   addToDebugger(BG_INTENSITY, 1, intensityChangeHandler);
 }
 
-scene.background = environmentMap;
-scene.environment = environmentMap;
+// scene.background = environmentMap;
+// scene.environment = environmentMap;
 
 export function brightenAllMaterials() {
   scene.traverse((child) => {
-    console.log("my baby", child);
     if (child.isMesh && child.material.isMeshStandardMaterial) {
       child.material.envMapIntensity = globalValues[ENV_MAP_INTENSITY];
     }
