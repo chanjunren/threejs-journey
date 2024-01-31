@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { debugGui } from "../debug";
 import { sizes } from "./window";
 
 export const canvas = document.querySelector('canvas.webgl')
@@ -14,10 +15,25 @@ controls.target.y = 3
 controls.enableDamping = true
 
 export const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    // antialias : true
 })
 renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1))
+renderer.toneMapping = THREE.ReinhardToneMapping
+renderer.toneMappingExposure = 2 
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+
+debugGui.add(renderer, 'toneMapping', {
+    No: THREE.NoToneMapping,
+    Linear: THREE.LinearToneMapping,
+    Reinhard: THREE.ReinhardToneMapping,
+    Cineon: THREE.CineonToneMapping,
+    ACESFilmic: THREE.ACESFilmicToneMapping
+})
+debugGui.add(renderer, 'toneMappingExposure').min(0).max(10).step(0.001)
 
 export function initWorld() {
     scene.add(camera)

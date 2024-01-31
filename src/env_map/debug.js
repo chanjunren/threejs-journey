@@ -1,7 +1,7 @@
 import GUI from "lil-gui";
 
 export const globalValues = {};
-const debugGui = new GUI();
+export const debugGui = new GUI();
 
 export function addToDebugger(key, initialValue, callback) {
   globalValues[key] = initialValue;
