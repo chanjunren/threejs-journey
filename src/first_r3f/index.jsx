@@ -1,4 +1,5 @@
 import { Canvas } from "@react-three/fiber";
+import { Leva } from "leva";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ACESFilmicToneMapping, LinearSRGBColorSpace } from "three";
@@ -21,6 +22,7 @@ const cameraSettings = {
 
 root.render(
   <>
+    <Leva />
     <Canvas
       // flat
       // linear
