@@ -1,47 +1,73 @@
-import { extend, useFrame, useThree } from "@react-three/fiber";
+import {
+  Float,
+  Html,
+  MeshReflectorMaterial,
+  OrbitControls,
+  PivotControls,
+  Text,
+  TransformControls,
+} from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import React, { useRef } from "react";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import CustomObject from "./CustomObject";
 
 export default function Experience() {
-  const cubeRef = useRef();
-  const groupRef = useRef();
   const { camera, gl } = useThree();
-  extend({ OrbitControls: OrbitControls });
-
-  useFrame((state, delta) => {
-    // Look around the center
-    const angle = state.clock.elapsedTime;
-    state.camera.position.x = Math.sin(angle) * 8;
-    state.camera.position.z = Math.cos(angle) * 8;
-    state.camera.lookAt(0, 0, 0);
-  });
+  const cubeRef = useRef();
+  const sphereRef = useRef();
 
   return (
     <>
-      {/* <orbitControls args={[camera, gl.domElement]} /> */}
+      <OrbitControls makeDefault />
       <directionalLight position={[1, 2, 3]} intensity={4.5} />
-      <ambientLight inteisity={2.5} />
-      <group ref={groupRef}>
-        <mesh position={[-2, 0, 0]}>
+      <ambientLight intensity={1.5} />
+      <PivotControls
+        anchor={[0, 0, 0]}
+        depthTest={false}
+        lineWidth={4}
+        axisColors={["#9381ff", "#ff4d6d", "#7ae582"]}
+        scale={100}
+        fixed
+      >
+        <mesh position-x={-2} ref={sphereRef}>
           <sphereGeometry />
           <meshStandardMaterial color="orange" />
+          <Html
+            distanceFactor={8}
+            occlude={[cubeRef, sphereRef]}
+            center
+            wrapperClass="label"
+            position={[1, 1, 0]}
+          >
+            That's a sphere 👍
+          </Html>
         </mesh>
-        <mesh
-          position={[2, 0, 0]}
-          scale={1.5}
-          rotation-y={Math.PI * 0.25}
-          ref={cubeRef}
-        >
+      </PivotControls>
+      <TransformControls object={cubeRef} mode={"rotate"}>
+        <mesh position-x={2} scale={1.5} ref={cubeRef}>
           <boxGeometry />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
-      </group>
-      <mesh position={[0, -2, 0]} scale={10} rotation-x={-Math.PI / 2}>
+      </TransformControls>
+      <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
         <planeGeometry />
-        <meshStandardMaterial color="greenyellow" />
+        <MeshReflectorMaterial
+          resolution={512}
+          blur={[1000, 1000]}
+          mixBlur={1}
+          mirror={0.5}
+        />
       </mesh>
-      <CustomObject />
+      <Float speed={5} floatIntensity={2}>
+        <Text
+          position-y={2}
+          fontSize={1}
+          color="salmon"
+          font="./bangers-v20-latin-regular.woff"
+          textAlign="center"
+        >
+          I LOVE R3F
+        </Text>
+      </Float>
     </>
   );
 }

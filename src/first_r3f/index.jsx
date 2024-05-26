@@ -6,25 +6,26 @@ import Experience from "./components/Experience";
 import "./style.css";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
+const glSettings = {
+  antialias: true,
+  // toneMapping: CineonToneMapping,
+  toneMapping: ACESFilmicToneMapping,
+  outputColorSpace: LinearSRGBColorSpace,
+};
 const cameraSettings = {
   fov: 45,
-  zoom: 50,
   near: 0.1,
   far: 200,
-  position: [3, 2, 6],
+  position: [-4, 3, 20],
 };
 
 root.render(
   <>
     <Canvas
-      flat // Applies
-      gl={{
-        antialias: true,
-        // toneMapping: CineonToneMapping,
-        toneMapping: ACESFilmicToneMapping,
-        outputColorSpace: LinearSRGBColorSpace,
-      }}
-      orthographic
+      // flat
+      // linear
+      // gl={glSettings}
+      // orthographic
       camera={cameraSettings}
     >
       <Experience />
